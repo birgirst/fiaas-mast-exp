@@ -52,6 +52,7 @@ def make_safe_name(name):
 
 
 def check_models():
+    return FiaasApplication, FiaasApplicationSpec
     for app_model, spec_model in [
             (FiaasApplication, FiaasApplicationSpec)
     ]:

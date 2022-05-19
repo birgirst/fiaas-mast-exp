@@ -23,7 +23,8 @@ Release = namedtuple("Release", [
     "spinnaker_tags",
     "raw_tags",
     "raw_labels",
-    "metadata_annotations"
+    "metadata_annotations",
+    "config_raw"
 ])
 
 Status = namedtuple("Status", ["status", "info", "logs"])

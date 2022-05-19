@@ -27,13 +27,13 @@ class ApplicationGenerator(MetadataGenerator):
         spec = self.spec(release)
         deployment_id = self.create_deployment_id()
         config = spec.config
-        namespace = config["namespace"] if (config['version'] < 3) and ("namespace" in config) else target_namespace
+        namespace = config['namespace'] if (config['version'] < 3) and ("namespace" in config) else target_namespace
         metadata = self.metadata(release, namespace, deployment_id)
         application = self.application_model(metadata=metadata, spec=spec)
         return deployment_id, application
 
     def spec(self, release):
-        config = self.download_config(release.config_url)
+        config = release.config_raw if release.config_raw else self.download_config(release.config_url)
         if not config:
             raise ClientError("Invalid config: {}".format(release.config_url))
 

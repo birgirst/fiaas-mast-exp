@@ -26,7 +26,8 @@ RUN apk --no-cache add \
     build-base \
     git \
     curl \
-    yaml-dev
+    yaml-dev \
+    jq
 COPY . /opt/fiaas-mast
 COPY .wheel_cache/*.whl /links/
 WORKDIR /opt/fiaas-mast
@@ -36,7 +37,7 @@ FROM common as production
 # Get rid of all build dependencies, install application using only pre-built binary wheels
 COPY --from=build /wheels/ /wheels/
 RUN pip install --no-index --no-cache-dir --find-links=/wheels/ --only-binary all /wheels/fiaas_mast*.whl
-USER fiaas-mast
+#USER fiaas-mast
 EXPOSE 5000
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["fiaas-mast"]
+CMD ["/opt/fiaas-mast/fiaas-mast"]
